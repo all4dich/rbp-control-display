@@ -163,14 +163,13 @@ func main() {
 	fmt.Println("LCD initialized.")
 
 	lcd.clear()
-	lcd.writeString("soyul")
+	lcd.writeString("Who are you?")
 	lcd.setCursor(1, 0)
-	lcd.writeString("sunjoo")
+	lcd.writeString("Sunjoo.")
 
 	//time.Sleep(10 * time.Second)
 	//lcd.clear()
 	//lcd.writeString("Done")
 	//time.Sleep(2 * time.Second)
 
-	// cleanup will be called automatically when program exists
 }

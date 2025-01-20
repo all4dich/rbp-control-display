@@ -162,11 +162,20 @@ func main() {
 	lcd.Init()
 	fmt.Println("LCD initialized.")
 
-	lcd.clear()
-	lcd.writeString("Who are you?")
-	lcd.setCursor(1, 0)
-	lcd.writeString("Sunjoo.")
+	// Create while loop
+	for {
+		// Get current date and time
+		now := time.Now()
+		curr_date := now.Format("2006-01-02")
+		curr_time := now.Format("15:04:05")
 
+		lcd.clear()
+		lcd.writeString(curr_date)
+		lcd.setCursor(1, 0)
+		lcd.writeString(curr_time)
+
+		time.Sleep(1 * time.Second)
+	}
 	//time.Sleep(10 * time.Second)
 	//lcd.clear()
 	//lcd.writeString("Done")

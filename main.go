@@ -3,8 +3,10 @@ package main
 import (
 	"fmt"
 	"log"
+	"os"
 	"time"
 
+	"github.com/akamensky/argparse"
 	"periph.io/x/conn/v3/gpio"
 	"periph.io/x/conn/v3/gpio/gpioreg"
 	"periph.io/x/host/v3"
@@ -28,6 +30,9 @@ type LCD struct {
 	d6 gpio.PinIO
 	d7 gpio.PinIO
 }
+
+// Declare a, b as integer with default value 1
+var a, b int
 
 // NewLCD creates a new LCD object with the specified pins
 func NewLCD(rs, e, d4, d5, d6, d7 gpio.PinIO) *LCD {
@@ -93,9 +98,9 @@ func (lcd *LCD) write4Bits(value byte) {
 }
 func (lcd *LCD) pulseEnable() {
 	lcd.e.Out(gpio.High)
-	time.Sleep(1 * time.Microsecond)
+	time.Sleep(time.Duration(a) * time.Microsecond)
 	lcd.e.Out(gpio.Low)
-	time.Sleep(1 * time.Microsecond)
+	time.Sleep(time.Duration(b) * time.Microsecond)
 }
 
 // Send a command to the LCD
@@ -139,10 +144,20 @@ func (lcd *LCD) setCursor(row, col int) {
 
 func main() {
 	// Initialize host driver
+	parser := argparse.NewParser("LCD Display Checker with Date/Time", "LCD Display Checker with Date/Time")
+	aPtr := parser.Int("a", "first", &argparse.Options{Required: false, Help: "first number", Default: 1})
+	bPtr := parser.Int("b", "second", &argparse.Options{Required: false, Help: "first number", Default: 1})
 	if _, err := host.Init(); err != nil {
 		log.Fatal(err)
 	}
-
+	err := parser.Parse(os.Args)
+	if err != nil {
+		fmt.Println(err)
+	}
+	a = *aPtr
+	b = *bPtr
+	fmt.Println(a)
+	fmt.Println(b)
 	// Get pins by their names
 	rs := gpioreg.ByName(rsPin)
 	e := gpioreg.ByName(ePin)

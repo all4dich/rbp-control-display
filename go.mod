@@ -3,6 +3,7 @@ module rbp5-controller
 go 1.23
 
 require (
+	github.com/akamensky/argparse v1.4.0 // indirect
 	github.com/brian-armstrong/gpio v0.0.0-20181227042754-72b0058bbbcb // indirect
 	github.com/jonboulle/clockwork v0.5.0 // indirect
 	github.com/mskrha/rpi-lcd v0.0.0-20201213150335-131bf4c0550a // indirect

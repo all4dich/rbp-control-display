@@ -1,4 +1,4 @@
-# rbp-controller-golang
+# rbp-control-display
 
 ## Comments for main.go
 
